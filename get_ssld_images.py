@@ -3,8 +3,9 @@ from bs4 import BeautifulSoup
 from PIL import Image
 
 """
-This script collects images from signs in the Swedish Sign Language Dictionary
+This script collects images from signs in the Swedish Sign Language Dictionary (teckensprakslexikon.su.se)
 and creates a composite image of the sign, either side-by-side or overlayed.
+
 The script requires Python packages PIL and bs4, and also Wget + ImageMagick.
 """
 
@@ -77,7 +78,7 @@ def main():
 		nums = sys.argv[1].split(",")
 		make_images(nums,overlay)
 	except:
-		print('Error! The correct input is "python3 get_ssld_images.py" or "python3 get_ssld_images.py -o" or "python3 get_ssld_images.py -overlay"')
+		print('Error! The correct input is "python3 get_ssld_images.py {signID}" or "python3 get_ssld_images.py {signID} -o" or "python3 get_ssld_images.py {signID} -overlay"')
 
 if __name__=="__main__":
 	main()
