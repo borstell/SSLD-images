@@ -77,7 +77,7 @@ def main():
 		nums = sys.argv[1].split(",")
 		make_images(nums,overlay)
 	except:
-		print('Error! The correct input is "python3 get_ssld_photos.py" or "python3 get_ssld_photos.py -o" or "python3 get_ssld_photos.py -overlay"')
+		print('Error! The correct input is "python3 get_ssld_images.py" or "python3 get_ssld_images.py -o" or "python3 get_ssld_images.py -overlay"')
 
 if __name__=="__main__":
 	main()
