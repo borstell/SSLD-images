@@ -20,7 +20,7 @@ NB: `-o` works as a shorthand for `-overlay`.
 ![overlay image](https://github.com/borstell/SSLD-images/blob/master/00003_overlay.jpg)
 
 SignIDs can be given in the full five-digit format (e.g., `00001`) or without zero-fillers (e.g., `1`).
-Multiple signIDs can be entered at once, by separating them with a comma "," – e.g.,
+Multiple signIDs can be entered at once, by separating them with a comma "," – for example:
 ```
 python3 get_ssld_images.py 00001,00002,00003
 ```
