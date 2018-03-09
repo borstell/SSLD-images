@@ -24,3 +24,22 @@ Multiple signIDs can be entered at once, by separating them with a comma "," –
 ```
 python3 get_ssld_images.py 00001,00002,00003
 ```
+
+## Update 2018-03-09:
+Some entries in the Swedish Sign Language dictionary have more than two images for the signs (usually due to being compounds with several movement parts). In the updated version, this is handled as follows:
+
+If there are three images for the entry, the default option renders a side-by-side image in which each individual image has been cropped to 60% of its original width.
+
+![side-by-side image](https://github.com/borstell/SSLD-images/blob/master/11955_side-by-side.jpg)
+
+And the overlay option renders a regular overlay but in two steps (first merging images 1 and 2, then the output merged with image 3):
+
+![overlay image](https://github.com/borstell/SSLD-images/blob/master/11955_overlay.jpg)
+
+If there are four images for the entry, the default option renders a 2x2 image, left to right, top-down.
+
+![side-by-side image](https://github.com/borstell/SSLD-images/blob/master/09979_side-by-side.jpg)
+
+And the overlay option renders two overlays (images 1+2 and images 3+4) that are then positioned side-by-side.
+
+![overlay image](https://github.com/borstell/SSLD-images/blob/master/09979_overlay.jpg)
