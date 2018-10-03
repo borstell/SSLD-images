@@ -13,9 +13,9 @@ for the default setting creating a side-by-side concatenation of the images of t
 
 For a semi-transparent overlay, run:
 ```
-python3 get_ssld_images.py {signID} -overlay
+python3 get_ssld_images.py {signID} --overlay
 ```
-NB: `-o` works as a shorthand for `-overlay`.
+NB: `-o` works as a shorthand for `--overlay`.
 
 ![overlay image](https://github.com/borstell/SSLD-images/blob/master/00003_overlay.jpg)
 
@@ -43,3 +43,6 @@ If there are four images for the entry, the default option renders a 2x2 image, 
 And the overlay option renders two overlays (images 1+2 and images 3+4) that are then positioned side-by-side.
 
 ![overlay image](https://github.com/borstell/SSLD-images/blob/master/09979_overlay.jpg)
+
+## Update 2018-10-03:
+HTML structure of the SSL Dictionary had changed. Current version should cope with this new structure.
