@@ -1,4 +1,4 @@
-import sys,os,re,urllib.request
+import sys,os,re,urllib.request,argparse
 from bs4 import BeautifulSoup
 from PIL import Image
 
@@ -17,15 +17,17 @@ def get_signs(num):
 		html = urllib.request.urlopen(url)
 		soup = BeautifulSoup(html,"html.parser")
 		many = [i for i in soup.find_all("img") if i.get("src").endswith("medium.jpg")]
-		img = re.findall(r'image: "(.*photo-1.jpg)',soup.text)
-		img1_url = top_url+img[0]
+		imgs = [i for i in soup.find_all("video") if i.get("poster").endswith("photo-1.jpg")]
+		#img = re.findall(r'image: "(.*photo-1.jpg)',soup.text)
+		img = imgs[0].get("poster")
+		img1_url = top_url+img
 		img2_url = img1_url.replace("-photo-1.jpg","-photo-2.jpg")
 		img1 = img1_url.split("/")[-1]
 		img2 = img2_url.split("/")[-1]
 		i1 = num+"_1.jpg"
 		i2 = num+"_2.jpg"
-		wget1 = "wget -O "+i1+" "+img1_url
-		wget2 = "wget -O "+i2+" "+img2_url
+		wget1 = "wget -c -O "+i1+" "+img1_url
+		wget2 = "wget -c -O "+i2+" "+img2_url
 		os.system(wget1)
 		os.system(wget2)
 		if len(many) == 2:
@@ -34,7 +36,7 @@ def get_signs(num):
 			img3_url = img1_url.replace("-photo-1.jpg","-photo-3.jpg")
 			img3 = img3_url.split("/")[-1]
 			i3 = num+"_3.jpg"
-			wget3 = "wget -O "+i3+" "+img3_url
+			wget3 = "wget -c -O "+i3+" "+img3_url
 			os.system(wget3)
 			if len(many) == 3:
 				return [i1,i2,i3]
@@ -42,7 +44,7 @@ def get_signs(num):
 				img4_url = img1_url.replace("-photo-1.jpg","-photo-4.jpg")
 				img4 = img4_url.split("/")[-1]
 				i4 = num+"_4.jpg"
-				wget4 = "wget -O "+i4+" "+img4_url
+				wget4 = "wget -c -O "+i4+" "+img4_url
 				os.system(wget4)
 				return [i1,i2,i3,i4]
 	except:
@@ -106,7 +108,7 @@ def make_images(all_nums,overlay):
 		if len(num) < 5:
 			num = num.zfill(5)
 		imgs = get_signs(num)
-		if overlay == True:
+		if overlay:
 			outname = imgs[0].split("_")[0]+".jpg"
 			if len(imgs) == 2:
 				make_overlay(imgs[0],imgs[1],outname)
@@ -129,17 +131,16 @@ def make_images(all_nums,overlay):
 				os.system("rm "+f)
 
 def main():
-	# If additional argument "-o" or "-overlay" is added from command line, output image is an overlay
+	# If additional argument "-o" or "--overlay" is added from command line, output image is an overlay
 	# ... if not, the output is a side-by-side concatenation
-	overlay = False
+	parser = argparse.ArgumentParser()
+	parser.add_argument("nums", help="List of sign IDs you wish to create images from, separated by commas",type=str)
+	parser.add_argument("-o","--overlay",help="Creates an overlay image (default is side-by-side)",action="store_true")
+	args = parser.parse_args()
 	try:
-		if len(sys.argv) > 2:
-			if sys.argv[2] in ["-o","-overlay"]:
-				overlay = True
-			else:
-				print('Error! Argument "%s" not recognized. Ignoring extra argument.' % sys.argv[2])
-		nums = sys.argv[1].split(",")
-		make_images(nums,overlay)
+		nums = args.nums
+		#nums = sys.argv[1].split(",")
+		make_images(nums,args.overlay)
 	except:
 		print('Error! The correct input is "python3 get_ssld_images.py {signID}" or "python3 get_ssld_images.py {signID} -o" or "python3 get_ssld_images.py {signID} -overlay"')
 
